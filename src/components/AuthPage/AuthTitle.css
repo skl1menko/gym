@@ -1,0 +1,43 @@
+.auth-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: white;
+}
+
+.app-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 36px;
+}
+
+.welcome-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #D1D5DB;
+    font-size: 16px;
+}
