@@ -1,4 +1,39 @@
-# React + Vite
+# Gym App
+
+React приложение для управления спортзалом с авторизацией через Google OAuth.
+
+## Настройка
+
+1. Склонируйте репозиторий
+2. Установите зависимости:
+   ```bash
+   npm install
+   ```
+
+3. Создайте файл `.env` на основе `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Добавьте ваш Google Client ID в файл `.env`:
+   ```
+   VITE_GOOGLE_CLIENT_ID=your_actual_google_client_id
+   ```
+
+5. Запустите приложение:
+   ```bash
+   npm run dev
+   ```
+
+## Получение Google Client ID
+
+1. Перейдите в [Google Cloud Console](https://console.cloud.google.com/)
+2. Создайте новый проект или выберите существующий
+3. Включите Google+ API
+4. Создайте учетные данные OAuth 2.0
+5. Скопируйте Client ID в файл `.env`
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

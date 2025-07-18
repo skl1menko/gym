@@ -1,6 +1,6 @@
 import './AuthForm.css'
-import { useState } from 'react';
-import { set, useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { MdEmail } from "react-icons/md";
 import { FaLock, FaGoogle, FaApple } from "react-icons/fa";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
@@ -26,7 +26,7 @@ const AuthForm = () => {
     const googleLogin = useGoogleLogin({
         onSuccess: async (credentialResponse) => {
             console.log('Google Login Success:', credentialResponse);
-
+            
             // useGoogleLogin возвращает access_token, не JWT
             // Для получения информации о пользователе используем Google API
             try {
@@ -36,7 +36,7 @@ const AuthForm = () => {
                         Accept: 'application/json'
                     }
                 });
-
+                
                 const userInfo = await response.json();
                 console.log('User Info:', userInfo);
                 // Здесь обрабатываем полученную информацию о пользователе
@@ -55,28 +55,28 @@ const AuthForm = () => {
         // Implement Apple login logic here
     };
 
-    const handleAnim = (tab) => {
+    const handleTabChange = (tab) => {
         if (tab !== activeTab) {
-           setIsAnimating(true);
-           setTimeout(() => {
-               setActiveTab(tab);
-               setTimeout(() => setIsAnimating(false), 100);
-           }, 100); // Длительность анимации
+            setIsAnimating(true);
+            setTimeout(() => {
+                setActiveTab(tab);
+                setTimeout(() => setIsAnimating(false), 100);
+            }, 200);
         }
-    }
+    };
 
     return (
         <div className='auth-form-container'>
             <div className="auth-select-container">
                 <button
                     className={`lgn-section${activeTab === 'login' ? ' active' : ''}`}
-                    onClick={() => handleAnim('login')}
+                    onClick={() => handleTabChange('login')}
                 >
                     Log In
                 </button>
                 <button
                     className={`sgn-section${activeTab === 'signup' ? ' active' : ''}`}
-                    onClick={() => handleAnim('signup')}
+                    onClick={() => handleTabChange('signup')}
                 >
                     Sign Up
                 </button>
