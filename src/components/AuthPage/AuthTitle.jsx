@@ -1,5 +1,5 @@
 import DumbLogo from '../../assets/dumbl.svg'
-import './AuthTitle.css'
+import './AuthTitle.scss'
 
 const AuthTitle = () => {
     return (

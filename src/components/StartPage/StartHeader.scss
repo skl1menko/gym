@@ -1,0 +1,35 @@
+.start-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: grey;
+
+    .header-logo-cont {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: 32px;
+
+        app-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 10px;
+            color: black;
+        }
+    }
+
+
+    .header-but-cont {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        .header-button {
+            color: black
+        }
+    }
+
+}

@@ -1,5 +1,5 @@
-import AuthTitle from "../components/AuthPage/AuthTitle";
-import AuthForm from "../components/AuthPage/AuthForm";
+import AuthTitle from "../../components/AuthPage/AuthTitle";
+import AuthForm from "../../components/AuthPage/AuthForm";
 import "./AuthPage.css";
 
 const AuthPage = () => {

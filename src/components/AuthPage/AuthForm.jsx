@@ -1,17 +1,18 @@
-import './AuthForm.css'
+import './AuthForm.scss'
 import { useState } from 'react';
 import { set, useForm } from 'react-hook-form';
 import { MdEmail } from "react-icons/md";
 import { FaLock, FaGoogle, FaApple } from "react-icons/fa";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { IoWarning } from "react-icons/io5";
-import { useGoogleLogin } from '@react-oauth/google';
-// import { jwtDecode } from 'jwt-decode'; // Используется для декодирования JWT токенов
+import useGoogleAuth from './hooks/useGoogleAuth'; // google auth hook
+import useAppleAuth from './hooks/useAppleAuth'; // apple auth hook
+import useTabAnimation from './hooks/useTabAnimation'; // custom hook for tab animation
+
 
 const AuthForm = () => {
-    const [activeTab, setActiveTab] = useState('login');
     const [showPassword, setShowPassword] = useState(false);
-    const [isAnimating, setIsAnimating] = useState(false);
+    const { activeTab, isAnimating, handleAnim } = useTabAnimation('login');
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         if (activeTab === 'login') {
@@ -23,60 +24,30 @@ const AuthForm = () => {
         }
     }
 
-    const googleLogin = useGoogleLogin({
-        onSuccess: async (credentialResponse) => {
-            console.log('Google Login Success:', credentialResponse);
+    const [visible,setVisible] = useState(true);
 
-            // useGoogleLogin возвращает access_token, не JWT
-            // Для получения информации о пользователе используем Google API
-            try {
-                const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${credentialResponse.access_token}`, {
-                    headers: {
-                        Authorization: `Bearer ${credentialResponse.access_token}`,
-                        Accept: 'application/json'
-                    }
-                });
+    const googleLogin = useGoogleAuth();
+    const appleLogin = useAppleAuth();
 
-                const userInfo = await response.json();
-                console.log('User Info:', userInfo);
-                // Здесь обрабатываем полученную информацию о пользователе
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        },
-        onError: (error) => {
-            console.error('Google Login Failed:', error);
-            // Handle login error
-        }
-    });
-
-    const handleAppleLogin = () => {
-        console.log('Apple login clicked');
-        // Implement Apple login logic here
-    };
-
-    const handleAnim = (tab) => {
-        if (tab !== activeTab) {
-           setIsAnimating(true);
-           setTimeout(() => {
-               setActiveTab(tab);
-               setTimeout(() => setIsAnimating(false), 100);
-           }, 100); // Длительность анимации
-        }
-    }
 
     return (
         <div className='auth-form-container'>
             <div className="auth-select-container">
                 <button
                     className={`lgn-section${activeTab === 'login' ? ' active' : ''}`}
-                    onClick={() => handleAnim('login')}
+                    onClick={() => {
+                        handleAnim('login');
+                        setVisible(true); // Show the forgot password link when switching to login
+                    }}
                 >
                     Log In
                 </button>
                 <button
                     className={`sgn-section${activeTab === 'signup' ? ' active' : ''}`}
-                    onClick={() => handleAnim('signup')}
+                    onClick={() =>{
+                        handleAnim('signup');
+                        setVisible(false); // Hide the forgot password link when switching to signup
+                    } }
                 >
                     Sign Up
                 </button>
@@ -135,7 +106,7 @@ const AuthForm = () => {
                         </div>
                         {activeTab === 'login' && (
                             <div className="forgot-password-container">
-                                <a href="#" className="forgot-password-link">Forgot password?</a>
+                                <a href="#" className={`forgot-password-link ${visible ? "show" : "hide"}`}>Forgot password?</a>
                             </div>
                         )}
                         <button className={`submit-but ${isAnimating ? 'animating' : ''}`}>
@@ -154,7 +125,7 @@ const AuthForm = () => {
                     <button className='google-auth' onClick={googleLogin}>
                         <FaGoogle style={{ width: '20px', height: '20px' }} /> Google
                     </button>
-                    <button className='apple-auth' onClick={handleAppleLogin}>
+                    <button className='apple-auth' onClick={appleLogin}>
                         <FaApple style={{ width: '20px', height: '20px' }} /> Apple
                     </button>
                 </div>
