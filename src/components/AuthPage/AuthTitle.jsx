@@ -6,7 +6,7 @@ const AuthTitle = () => {
         <div className="auth-title-container">
             <div className="logo-container">
                 <div>
-                    <img src={DumbLogo} alt="DumbLogo" />
+                    <img style={{width: '60px'}} src={DumbLogo} alt="DumbLogo" />
                 </div>
                 <div>
                     <span className="app-name">FitPower</span>

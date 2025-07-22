@@ -11,4 +11,5 @@
     background-blend-mode: overlay;
     position: fixed;
     inset: 0;
+    padding-top: 102px; /* Добавляем отступ сверху для заголовка */
 }

@@ -1,3 +1,4 @@
+
 import './AuthForm.scss'
 import { useState } from 'react';
 import { set, useForm } from 'react-hook-form';
@@ -8,6 +9,7 @@ import { IoWarning } from "react-icons/io5";
 import useGoogleAuth from './hooks/useGoogleAuth'; // google auth hook
 import useAppleAuth from './hooks/useAppleAuth'; // apple auth hook
 import useTabAnimation from './hooks/useTabAnimation'; // custom hook for tab animation
+import { motion } from 'framer-motion';
 
 
 const AuthForm = () => {
@@ -31,7 +33,11 @@ const AuthForm = () => {
 
 
     return (
-        <div className='auth-form-container'>
+        <motion.div
+            className='auth-form-container'
+            layout
+            transition={{ duration: 0.5, type: 'spring' }}
+        >
             <div className="auth-select-container">
                 <button
                     className={`lgn-section${activeTab === 'login' ? ' active' : ''}`}
@@ -55,7 +61,7 @@ const AuthForm = () => {
             <div className='auth-form'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="lgn-form-container">
-                        <div className={`input-group ${errors.email ? 'has-error' : ''}`}>
+                        <div className={`input-group ${errors.email ? 'has-error' : ''}`}> 
                             <div style={{ position: 'relative' }}>
                                 <div className="icon-wrapper">
                                     <MdEmail className='input-icon' />
@@ -76,7 +82,7 @@ const AuthForm = () => {
                                 </div>
                             }
                         </div>
-                        <div className={`input-group ${errors.password ? 'has-error' : ''}`}>
+                        <div className={`input-group ${errors.password ? 'has-error' : ''}`}> 
                             <div style={{ position: 'relative' }}>
                                 <div className="icon-wrapper">
                                     <FaLock className='input-icon' />
@@ -130,7 +136,7 @@ const AuthForm = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
